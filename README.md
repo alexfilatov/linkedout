@@ -1,5 +1,7 @@
 # LinkedOut
 
+![A LinkedIn Premium upsell notification crossed out with a large red X](assets/readme-banner.png)
+
 *Thrilled to announce some peace and quiet.*
 
 A local Chrome and Safari WebExtension that hides LinkedIn Premium sales notifications, including “3 people viewed your profile. See the full list with Premium.”
@@ -47,6 +49,63 @@ This does not affect LinkedIn's mobile app alerts, emails, server-side unread co
 No account login, analytics, remote code, telemetry, or server. Settings stay in local browser storage. The extension reads only the loaded LinkedIn page and does not click, dismiss, mark as read, or delete notifications on your account.
 
 Rules target explicit English Premium sales language and, for short trial CTAs, LinkedIn sales links. A plain mention of “Premium” does not match. Feed posts and messages are outside the page filter's scope. Because LinkedIn controls its markup and copy, new variants or other languages may need rules added in `extension/rules.js` and selectors updated in `extension/content.js`. Text-based matching may occasionally misclassify quoted sales copy inside a notification. Pause filtering to inspect any hidden items.
+
+## Build your own with a prompt
+
+To build an independent version, copy this prompt into your coding assistant. Review the generated source and permissions before loading it in your browser. You don't need to install LinkedOut or use its code.
+
+```text
+Build a small, local browser extension for Chrome and Safari that hides
+LinkedIn Premium upsell notifications. Generate all source files, tests,
+and installation instructions in a new project I can inspect myself.
+
+Behavior:
+- On https://www.linkedin.com/notifications/, hide individual promotional
+  notification rows such as “3 people viewed your profile. See the full
+  list with Premium.” and “Premium benefit”. Also hide Premium sales toasts.
+- Match explicit sales copy such as “Try Premium”, “Upgrade to Premium”,
+  and “See the full list with Premium”. Preserve ordinary notifications,
+  messages, job alerts, feed posts, and mentions of Premium membership.
+- Handle dynamically inserted and recycled rows, infinite scrolling,
+  and LinkedIn's client-side navigation with a debounced MutationObserver.
+- Avoid depending on generated CSS class names. Handle text split across
+  spans, SVG profile avatars, and nested SVG menu icons. A menu icon is
+  not an avatar. Hide the entire matching row, including any covering link
+  with duplicate accessible text, without hiding neighboring rows or lists.
+- Include a popup with a persistent on/off switch and the current hidden
+  count. Turning filtering off must restore the hidden rows immediately.
+- Hide locally only: do not click, delete, dismiss, mark notifications as
+  read, or alter server-side unread counts or account preferences.
+
+Desktop notifications:
+- Be explicit that hiding page content does not selectively stop Premium
+  pushes delivered by LinkedIn's service worker.
+- In Chrome, offer a separate, opt-in control to block ALL LinkedIn desktop
+  notifications, including messages and job alerts. Request contentSettings
+  only when I click that control. Removing the block must clear only this
+  extension's rule and restore the browser's existing policy, never force allow.
+- In Safari, provide instructions for denying LinkedIn's website notification
+  permission. Do not claim to control mobile app notifications or email.
+
+Implementation and privacy:
+- Use a shared Manifest V3 WebExtension with plain, readable JavaScript
+  and separate Chrome/Safari packages. Restrict page access to
+  https://www.linkedin.com/*. Use local storage for settings.
+- Use browser-injected CSS for hiding rows so replacing the page's head
+  doesn't remove the hiding rule. Preserve each element's original state.
+- No backend, telemetry, analytics, credentials, remote scripts, external
+  runtime assets, or unnecessary permissions. Explain each permission.
+- Provide Chrome “Load unpacked” instructions and a Safari packaging script
+  using Apple's Xcode tools. Distinguish source readiness from a signed app.
+
+Verification:
+- Test matching and nonmatching text, dynamic insertion, recycled rows,
+  pause/restore, nested menus, SVG avatars, duplicate overlay links,
+  permission denial, and restoring the previous desktop notification policy.
+- If live markup differs, ask me for the notification row's outerHTML and
+  turn it into a regression fixture. Do not declare success based only on
+  invented HTML fixtures. Report exactly what was and wasn't verified.
+```
 
 ## Development
 
