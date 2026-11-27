@@ -1,0 +1,4 @@
+/* Browser-injected CSS survives LinkedIn replacing its document head. */
+[data-linkedout-hidden] {
+  display: none !important;
+}
