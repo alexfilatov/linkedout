@@ -6,6 +6,12 @@
 
 A local Chrome and Safari WebExtension that hides LinkedIn Premium sales notifications, including “3 people viewed your profile. See the full list with Premium.”
 
+## Disclaimer: LinkedIn terms and account risk
+
+LinkedOut is an unofficial, independent project, unaffiliated with and not endorsed or approved by LinkedIn. LinkedIn's [User Agreement, section 8.2(15)](https://www.linkedin.com/legal/user-agreement) prohibits modifying its services or their appearance. Its [prohibited software policy](https://www.linkedin.com/help/linkedin/answer/a1341387/prohibited-software-and-extensions) explicitly includes appearance-modifying browser extensions and warns of account restrictions or closure.
+
+**Using LinkedOut may violate LinkedIn's terms and put your account at risk.** Local-only operation and the absence of data collection do not establish compliance. The same issue applies to an equivalent extension you build yourself. Use at your own risk; this project offers no guarantee of account safety or continued compatibility. This notice is not legal advice or permission from LinkedIn, and does not remove those risks.
+
 ## Install in Chrome
 
 Download or clone this repository. The built extension is included in `dist/chrome` — no npm install is needed to use it.
